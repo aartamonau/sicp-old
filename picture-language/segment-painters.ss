@@ -1,7 +1,3 @@
-(load "drawing.scm")
-(load "segments.scm")
-(load "frames.scm")
-
 (module segment-painters scheme
   (require "drawing.ss" "segments.ss" "frames.ss")
   (provide segments->painter

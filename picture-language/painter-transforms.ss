@@ -1,7 +1,7 @@
 ;; some other indirect definition of transforms can be found in "indirect-painter-transforms.ss"
 
 (module painter-transforms scheme
-  (require "frames.ss" "higher-order-operations.ss")
+  (require "frames.ss" "vectors.ss")
   (provide transform-painter
            flip-vert flip-horiz
            shrink-to-upper-right shrink-to-upper-left shrink-to-lower-right shrink-to-upper-left
@@ -10,7 +10,25 @@
            below below-rev beside beside-rev put-on
            up-split right-split left-split corner-split flipped-pairs
            square-limit turned-out-square-limit)
-  
+
+  ;; Some higher order procedures to manipulate painters in general way
+
+  (define (square-of-four tl tr bl br)
+    (lambda (painter)
+      (let ((top (beside (tl painter) (tr painter)))
+            (bottom (beside (bl painter) (br painter))))
+        (below bottom top))))
+
+  (define (split outer-splitter inner-splitter)
+    (define (split-helper painter n)
+      (if (= n 0)
+          painter
+          (let ((smaller (split-helper painter (- n 1))))
+            (outer-splitter painter
+                            (inner-splitter smaller smaller)))))
+    split-helper)
+
+  ;; end of higher order functions
   
   (define (transform-painter painter origin corner1 corner2)
     (lambda (frame)

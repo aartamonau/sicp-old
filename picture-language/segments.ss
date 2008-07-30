@@ -1,7 +1,5 @@
 ; SICP ex. 2.48
 
-(load "vectors.scm")
-
 (module segments scheme
   (require "vectors.ss")
   (provide make-segment

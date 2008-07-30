@@ -1,6 +1,5 @@
 ; SICP ex. 2.47
 
-(load "vectors.scm")
 (module frames scheme
   (require "vectors.ss")
   (provide make-frame
