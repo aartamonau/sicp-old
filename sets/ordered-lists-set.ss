@@ -1,37 +1,14 @@
 (module ordered-lists-set scheme
+  (require "selection-sort.ss")
   (provide make-set element-of-set? adjoin-set intersection-set union-set)
-
-  (define (min-list items)
-    (define (helper current-min items)
-      (cond ((null? items) current-min)
-            ((< (car items) current-min) (helper (car items) (cdr items)))
-            (else (helper current-min (cdr items)))))
-    (if (null? items)
-        (error "List must contain at least one item")
-        (helper (car items) (cdr items))))
-
-  ;; places "x" element to the first place in the list
-  ;; other elements in the list don't preserve their order
-  (define (rearrange-list x items)
-    (define (helper head tail)
-      (cond ((null? tail)
-             (error "There is no such element in the list"))
-            ((equal? x (car tail))
-             (cons x (append head (cdr tail))))
-            (else (helper (cons (car tail) head) (cdr tail)))))
-    (helper '() items))
-
-  (define (sort-list items)
-    (define (helper sorted unsorted)
-      (if (null? unsorted)
-          (reverse sorted)
-          (let ((rearranged (rearrange-list (min-list unsorted) unsorted)))
-            (helper (cons (car rearranged) sorted) (cdr rearranged)))))
-    (helper '() items))
 
   ;; simple and stupid selection sort
   (define (make-set . items)
-    (sort-list items))
+    (selection-sort items
+                    (lambda (x y)
+                      (cond ((< x y) -1)
+                            ((> x y)  1)
+                            (else 0)))))
 
   (define (element-of-set? x set)
     (cond ((null? set) false)

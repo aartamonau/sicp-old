@@ -1,0 +1,8 @@
+  (define (rearrange-list x items cmp)
+    (define (helper head tail)
+      (cond ((null? tail)
+             (error "There is no such element in the list"))
+            (= 0 (cmp x (car tail))
+             (cons x (append head (cdr tail))))
+            (else (helper (cons (car tail) head) (cdr tail)))))
+    (helper '() items))
