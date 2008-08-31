@@ -36,7 +36,7 @@
 
   (define (encode message tree)
     (define (choose-branch symbol tree)
-      (if (eqv? (memv symbol (symbols (right-branch tree))) false)
+      (if (not (eqv? (memv symbol (symbols (left-branch tree))) false))
           (cons 0 (left-branch tree))
           (cons 1 (right-branch tree))))
     (define (encode-symbol symbol tree)
