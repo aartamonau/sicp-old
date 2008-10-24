@@ -205,16 +205,17 @@
            (error "Unknown expression type -- DERIV" exp))))
 
 
-  (define (make-expression-prefix quoted-expression)
-    (define (helper expression 
-    (define (helper epxression top-level-operation)
-      (map (lambda (x)
-             (if (list? x)
-                 (cond ((null? x) (error "NULL expression. [make-expression-prefix]"))
-                       ((sum? x) (make-sum-from-list (cdr x)))
-                       ((product? x) (make-product-from-list (cdr x)))
-                       ((exponentiation? x) (make-exponentiation-from-list))
-                       (else (error (string-append "(" (list->string x) ") "
-                                                   "Unknown expression. [make-expression-prefix]"))))
+;;   (define (make-expression-prefix quoted-expression)
+;;     (define (helper expression 
+;;     (define (helper epxression top-level-operation)
+;;       (map (lambda (x)
+;;              (if (list? x)
+;;                  (cond ((null? x) (error "NULL expression. [make-expression-prefix]"))
+;;                        ((sum? x) (make-sum-from-list (cdr x)))
+;;                        ((product? x) (make-product-from-list (cdr x)))
+;;                        ((exponentiation? x) (make-exponentiation-from-list))
+;;                        (else (error (string-append "(" (list->string x) ") "
+;;                                                    "Unknown expression. [make-expression-prefix]"))))
+  )
                  
                                                    

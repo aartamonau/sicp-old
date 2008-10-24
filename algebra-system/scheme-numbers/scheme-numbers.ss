@@ -1,0 +1,22 @@
+(module scheme-numbers scheme
+  (require "../tag-system/tag-system.ss" "../operations-table/operations-table.ss")
+  (provide install-scheme-number-package)
+
+  (define (install-scheme-number-package)
+    (define (tag x)
+      (attach-tag 'scheme-number x))
+    (put 'add '(scheme-number scheme-number)
+         (lambda (x y) (tag (+ x y))))
+    (put 'sub '(scheme-number scheme-number)
+         (lambda (x y) (tag (- x y))))
+    (put 'mul '(scheme-number scheme-number)
+         (lambda (x y) (tag (* x y))))
+    (put 'div '(scheme-number scheme-number)
+         (lambda (x y) (tag (/ x y))))
+    (put 'equ? '(scheme-number scheme-number)
+         (lambda (x y) (eqv? (contents x) (contents y))))
+    (put '=zero? '(scheme-number)
+         (lambda (x) (eqv? (contents x) 0)))
+    (put 'make 'scheme-number
+         (lambda (x) (tag x)))
+    'done))
