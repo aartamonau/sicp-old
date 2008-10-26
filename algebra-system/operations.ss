@@ -1,12 +1,12 @@
 (module operations scheme
-  (require "complex-algebra/complex.ss" "rational-algebra/rational.ss" "scheme-numbers/scheme-numbers.ss" "generic/apply.ss"
+  (require "complex-algebra/complex.ss" "rational-algebra/rational.ss" "integer-algebra/integer-algebra.ss" "generic/apply.ss"
            "operations-table/operations-table.ss")
-  (provide make-complex-from-real-imag make-complex-from-mag-ang make-rational make-scheme-number
-           add sub mul div equ? =zero? numer denom)
+  (provide make-complex-from-real-imag make-complex-from-mag-ang make-rational make-integer
+           add sub mul div equ? =zero? numer denom project real-part imag-part magnitude angle)
 
   (install-complex-package)
   (install-rational-package)
-  (install-scheme-number-package)
+  (install-integer-algebra-package)
 
   (define (add x y) (apply-generic 'add x y))
   (define (sub x y) (apply-generic 'sub x y))
@@ -16,9 +16,14 @@
   (define (=zero? x) (apply-generic '=zero? x))
   (define (numer x) (apply-generic 'numer x))
   (define (denom x) (apply-generic 'denom x))
+  (define (project x) (apply-generic 'project x))
+  (define (real-part x) (apply-generic 'real-part x))
+  (define (imag-part x) (apply-generic 'imag-part x))
+  (define (magnitude x) (apply-generic 'magnitude x))
+  (define (angle x) (apply-generic 'angle x))
 
-  (define (make-scheme-number n)
-    ((get 'make 'scheme-number) n))
+  (define (make-integer n)
+    ((get 'make 'integer) n))
 
   (define (make-rational n d)
     ((get 'make 'rational) n d))

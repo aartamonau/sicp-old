@@ -23,6 +23,11 @@
     ;; interface
     (define (tag z) (attach-tag 'complex z))
 
+    (put 'real-part '(complex) real-part)
+    (put 'imag-part '(complex) imag-part)
+    (put 'magnitude '(complex) magnitude)
+    (put 'angle '(complex) angle)
+
     (put 'add '(complex complex)
          (lambda (x y) (tag (add-complex x y))))
     (put 'sub '(complex complex)
@@ -37,6 +42,9 @@
     (put '=zero? '(complex)
          (lambda (x) (and (eqv? (magnitude x) 0))))
 
+    (put 'project '(complex)
+         (lambda (x) (tag (make-from-real-imag (real-part x)
+                                               0))))
     (put 'make-from-real-imag 'complex
          (lambda (x y) (tag (make-from-real-imag x y))))
     (put 'make-from-mag-ang 'complex
